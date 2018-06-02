@@ -1,0 +1,27 @@
+<html>
+  <body>
+    <h3>WebSocket Go</h3>
+    <div class="messages">
+      
+    </div>
+    <input class="textInput">
+    <button class="sendMessage">Send message</button>
+
+    <script>
+      const url = 'ws://localhost:8080/room';
+      window.ws = new WebSocket(url);
+      
+      ws.onmessage = function(msg){
+        const output = document.querySelector('.messages')
+        output.insertAdjacentHTML('beforeend', `<p>${msg.data}</p>`);
+        console.log(msg)
+      }
+
+      document.querySelector('.sendMessage').addEventListener('click', () => {
+        const text = document.querySelector('.textInput').value
+        ws.send(text)
+      })
+    </script>
+
+  </body>
+</html>
